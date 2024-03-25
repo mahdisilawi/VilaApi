@@ -1,6 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using Vila.WebApi.Context;
+using Vila.WebApi.Services.Vila;
+
 var builder = WebApplication.CreateBuilder(args);
-var services  = builder.Services;
+var services = builder.Services;
 // Add services to the container.
+
+//Connecting to DataBase
+services.AddDbContext<DataContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("Local")
+   )
+);
+
+#region Dependencies
+services.AddTransient<IVilaService,VilaService>();
+#endregion
 
 services.AddControllers();
 //// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
