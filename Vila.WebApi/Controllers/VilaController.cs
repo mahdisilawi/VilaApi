@@ -34,7 +34,7 @@ namespace Vila.WebApi.Controllers
             return Ok(model);
         }
 
-        [HttpGet("[action]/{vilaId:int}")]
+        [HttpGet("[action]/{vilaId:int}", Name = "GetDetails")]
         public IActionResult GetDetails(int vilaId)
         {
             var vilaDetail = _vilaService.GetById(vilaId);
@@ -51,12 +51,48 @@ namespace Vila.WebApi.Controllers
             var vila = _mapper.Map<Models.Vila>(model);
             if (_vilaService.Create(vila))
             {
-                return StatusCode(201);
+                return CreatedAtRoute("GetDetails", new {vilaId = vila.VilaId},_mapper.Map<VilaDto>(vila));
             }
             ModelState.AddModelError(string.Empty, "مشکل از سمت سرور می باشد...");
 
             
             return StatusCode(500,ModelState);
+        }
+
+
+        [HttpPatch("[action]/{vilaId:int}")]
+        public IActionResult Update(int vilaId,[FromBody] VilaDto model)
+        {
+            if (vilaId != model.VilaId)
+                return NotFound();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var vila = _mapper.Map<Models.Vila>(model);
+            if (_vilaService.Update(vila))
+            {
+                return StatusCode(204);
+            }
+            ModelState.AddModelError(string.Empty, "مشکل از سمت سرور می باشد...");
+
+
+            return StatusCode(500, ModelState);
+        }
+
+
+        [HttpDelete("[action]/{vilaId:int}")]
+        public IActionResult Remove(int vilaId)
+        {
+            var vila = _vilaService.GetById(vilaId);
+            if (vila == null)
+                return NotFound();
+            if (_vilaService.Delete(vila))
+            {
+                return NoContent();
+            }
+            ModelState.AddModelError(string.Empty, "مشکل از سمت سرور می باشد...");
+
+
+            return StatusCode(500, ModelState);
         }
 
     }

@@ -22,6 +22,16 @@ namespace Vila.WebApi.Dtos
         [MaxLength(11, ErrorMessage = "شماره موبایل نباید بیشتر از 11 عدد باشد")]
         [MinLength(11, ErrorMessage = "شماره موبایل ویلا نباید کمتر از 11 عدد باشد")]
         public string Mobile { get; set; }
+        /// <summary>
+        /// قیمت کرایه یک روز ویلا (تومان)
+        /// </summary>
+        [Required(ErrorMessage = "قیمت کرایه روزانه ویلا اجباری است")]
+        public long DayPrice { get; set; }
+        /// <summary>
+        /// قیمت فروش ویلا (تومان)
+        /// </summary>
+        [Required(ErrorMessage = "قیمت فروش  ویلا اجباری است")]
+        public long SellPrice { get; set; }
         [Required]
         [DateValidation]
         public string BuildDate { get; set; }

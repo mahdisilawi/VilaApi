@@ -22,6 +22,12 @@ namespace Vila.WebApi.Models
         [MaxLength(11)]
         public string Mobile { get; set; }
         [Required]
+        public long DayPrice { get; set; }
+        [Required]
+        public long SellPrice { get; set; }
+        [Required]
         public DateTime BuildDate { get; set; }
+
+        public List<Detail> Details { get; set; }
     }
 }
