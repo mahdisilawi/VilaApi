@@ -19,8 +19,12 @@ namespace Vila.WebApi.Controllers
             _mapper = mapper;
 
         }
-
-        [HttpGet]
+        /// <summary>
+        /// دریافت لیست ویلاها
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("[action]")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<VilaDto>))]
         public IActionResult GetAll()
         {
             var list = _vilaService.GetAll();
@@ -34,7 +38,14 @@ namespace Vila.WebApi.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// دریافت یک ویلاباآی دی 
+        /// </summary>
+        /// <param name="vilaId">کلید ویلا</param>
+        /// <returns></returns>
         [HttpGet("[action]/{vilaId:int}", Name = "GetDetails")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(VilaDto))]
+        [ProducesResponseType(404)]
         public IActionResult GetDetails(int vilaId)
         {
             var vilaDetail = _vilaService.GetById(vilaId);
@@ -43,7 +54,15 @@ namespace Vila.WebApi.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// ایجاد یک ویلا جدید
+        /// </summary>
+        /// <param name="model">اطلاعات ویلا</param>
+        /// <returns></returns>
         [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(VilaDto))]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(400)]
         public IActionResult Create([FromBody] VilaDto model)
         {
             if (!ModelState.IsValid) 
@@ -59,8 +78,17 @@ namespace Vila.WebApi.Controllers
             return StatusCode(500,ModelState);
         }
 
-
+        /// <summary>
+        /// ویرایش ویلا
+        /// </summary>
+        /// <param name="vilaId">کلید ویلا</param>
+        /// <param name="model">اطلاعات ویلا</param>
+        /// <returns></returns>
         [HttpPatch("[action]/{vilaId:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public IActionResult Update(int vilaId,[FromBody] VilaDto model)
         {
             if (vilaId != model.VilaId)
@@ -78,8 +106,15 @@ namespace Vila.WebApi.Controllers
             return StatusCode(500, ModelState);
         }
 
-
+        /// <summary>
+        /// حذف ویلا
+        /// </summary>
+        /// <param name="vilaId">کلید ویلا</param>
+        /// <returns></returns>
         [HttpDelete("[action]/{vilaId:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(404)]
         public IActionResult Remove(int vilaId)
         {
             var vila = _vilaService.GetById(vilaId);

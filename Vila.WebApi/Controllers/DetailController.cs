@@ -25,8 +25,13 @@ namespace Vila.WebApi.Controllers
             _mapper = mapper;
         }
 
-
+        /// <summary>
+        /// دریافت لیست ویژگی های یک ویلا
+        /// </summary>
+        /// <param name="vilaId"></param>
+        /// <returns></returns>
         [HttpGet("[action]/{vilaId:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<DetailDto>))]
         public IActionResult GetAllVilaDetails(int vilaId)
         {
             var vila = _vilaService.GetById(vilaId);
@@ -44,11 +49,13 @@ namespace Vila.WebApi.Controllers
         }
 
         /// <summary>
-        /// دریافت یک جز ویلا
+        /// دریافت یک ویژگی ویلا
         /// </summary>
         /// <param name="detailId">ای دی جز </param>
         /// <returns></returns>
-        [HttpGet("[action]/{detailId:int}", Name = "GetById")]   
+        [HttpGet("[action]/{detailId:int}", Name = "GetById")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DetailDto))]
+        [ProducesResponseType(404)]
         public IActionResult GetById(int detailId)
         {
             var detail = _detailService.GetById(detailId);
@@ -57,7 +64,15 @@ namespace Vila.WebApi.Controllers
             return StatusCode(200, model);
         }
 
+        /// <summary>
+        /// ایجاد ویژگی ویلا
+        /// </summary>
+        /// <param name="model">اطلاعات ویژگی</param>
+        /// <returns></returns>
         [HttpPost("[action]")]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(DetailDto))]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(400)]
         public IActionResult Create([FromBody] DetailDto model)
         {
             if (!ModelState.IsValid)
@@ -66,13 +81,24 @@ namespace Vila.WebApi.Controllers
             var detail = _mapper.Map<Models.Detail>(model);
             if (_detailService.Create(detail))
             {
-                return StatusCode(204);
+                var dtoDetail = _mapper.Map<DetailDto>(detail);
+                return CreatedAtRoute("GetById", new { detailId = dtoDetail.DetailId }, dtoDetail);
             }
             ModelState.AddModelError("", "مشکل از سمت سرور میباشد .. لطفا مجددا تلاش کنید .");
             return StatusCode(500, ModelState);
         }
 
+        /// <summary>
+        /// ویرایش یک ویژگی ویلا
+        /// </summary>
+        /// <param name="detailId">کلید ویژگی ویلا</param>
+        /// <param name="model">اطلاعات ویژگی</param>
+        /// <returns></returns>
         [HttpPatch("[action]/{detailId:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public IActionResult Update(int detailId, [FromBody] DetailDto model)
         {
             if (detailId != model.DetailId)
@@ -91,11 +117,14 @@ namespace Vila.WebApi.Controllers
             return StatusCode(500, ModelState);
         }
         /// <summary>
-        /// حذف جز ویلا
+        /// حذف ویژگی ویلا
         /// </summary>
-        /// <param name="detailId">کلید جز</param>
+        /// <param name="detailId">کلید ویژگی</param>
         /// <returns></returns>
         [HttpDelete("[action]/{detailId:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(404)]
         public IActionResult Remove(int detailId)
         {
             var detail = _detailService.GetById(detailId);

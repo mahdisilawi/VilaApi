@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Vila.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:Vila.WebApi.Controllers.DetailController.GetAllVilaDetails(System.Int32)">
+            <summary>
+            دریافت لیست ویژگی های یک ویلا
+            </summary>
+            <param name="vilaId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Vila.WebApi.Controllers.DetailController.GetById(System.Int32)">
+            <summary>
+            دریافت یک ویژگی ویلا
+            </summary>
+            <param name="detailId">ای دی جز </param>
+            <returns></returns>
+        </member>
+        <member name="M:Vila.WebApi.Controllers.DetailController.Create(Vila.WebApi.Dtos.DetailDto)">
+            <summary>
+            ایجاد ویژگی ویلا
+            </summary>
+            <param name="model">اطلاعات ویژگی</param>
+            <returns></returns>
+        </member>
+        <member name="M:Vila.WebApi.Controllers.DetailController.Update(System.Int32,Vila.WebApi.Dtos.DetailDto)">
+            <summary>
+            ویرایش یک ویژگی ویلا
+            </summary>
+            <param name="detailId">کلید ویژگی ویلا</param>
+            <param name="model">اطلاعات ویژگی</param>
+            <returns></returns>
+        </member>
+        <member name="M:Vila.WebApi.Controllers.DetailController.Remove(System.Int32)">
+            <summary>
+            حذف ویژگی ویلا
+            </summary>
+            <param name="detailId">کلید ویژگی</param>
+            <returns></returns>
+        </member>
+        <member name="M:Vila.WebApi.Controllers.VilaController.GetAll">
+            <summary>
+            دریافت لیست ویلاها
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Vila.WebApi.Controllers.VilaController.GetDetails(System.Int32)">
+            <summary>
+            دریافت یک ویلاباآی دی 
+            </summary>
+            <param name="vilaId">کلید ویلا</param>
+            <returns></returns>
+        </member>
+        <member name="M:Vila.WebApi.Controllers.VilaController.Create(Vila.WebApi.Dtos.VilaDto)">
+            <summary>
+            ایجاد یک ویلا جدید
+            </summary>
+            <param name="model">اطلاعات ویلا</param>
+            <returns></returns>
+        </member>
+        <member name="M:Vila.WebApi.Controllers.VilaController.Update(System.Int32,Vila.WebApi.Dtos.VilaDto)">
+            <summary>
+            ویرایش ویلا
+            </summary>
+            <param name="vilaId">کلید ویلا</param>
+            <param name="model">اطلاعات ویلا</param>
+            <returns></returns>
+        </member>
+        <member name="M:Vila.WebApi.Controllers.VilaController.Remove(System.Int32)">
+            <summary>
+            حذف ویلا
+            </summary>
+            <param name="vilaId">کلید ویلا</param>
+            <returns></returns>
+        </member>
+        <member name="M:Vila.WebApi.Controllers.VilaV2Controller.Search(System.Int32,System.String,System.Int32)">
+            <summary>
+            جست وجوی ویلا
+            </summary>
+            <param name="pageId">صفحه چندم ؟</param>
+            <param name="filter">متن جست وجو</param>
+            <param name="take">تعداد نمایش</param>
+            <returns></returns>
+        </member>
+        <member name="P:Vila.WebApi.Dtos.VilaDto.DayPrice">
+            <summary>
+            قیمت کرایه یک روز ویلا (تومان)
+            </summary>
+        </member>
+        <member name="P:Vila.WebApi.Dtos.VilaDto.SellPrice">
+            <summary>
+            قیمت فروش ویلا (تومان)
+            </summary>
+        </member>
+        <member name="T:Vila.WebApi.Migrations.AddVilaTable">
+            <inheritdoc />
+        </member>
+        <member name="M:Vila.WebApi.Migrations.AddVilaTable.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Vila.WebApi.Migrations.AddVilaTable.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Vila.WebApi.Migrations.AddVilaTable.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Vila.WebApi.Migrations.AddDetailModel">
+            <inheritdoc />
+        </member>
+        <member name="M:Vila.WebApi.Migrations.AddDetailModel.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Vila.WebApi.Migrations.AddDetailModel.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Vila.WebApi.Migrations.AddDetailModel.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Vila.WebApi.Migrations.EditDetailModelDbSet">
+            <inheritdoc />
+        </member>
+        <member name="M:Vila.WebApi.Migrations.EditDetailModelDbSet.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Vila.WebApi.Migrations.EditDetailModelDbSet.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Vila.WebApi.Migrations.EditDetailModelDbSet.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Vila.WebApi.Migrations.EditVilaModel">
+            <inheritdoc />
+        </member>
+        <member name="M:Vila.WebApi.Migrations.EditVilaModel.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Vila.WebApi.Migrations.EditVilaModel.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Vila.WebApi.Migrations.EditVilaModel.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

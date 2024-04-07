@@ -1,4 +1,6 @@
-﻿namespace Vila.WebApi.Services.Vila
+﻿using Vila.WebApi.Paging;
+
+namespace Vila.WebApi.Services.Vila
 {
     public interface IVilaService
     {
@@ -7,6 +9,7 @@
         bool Create(Models.Vila model);
         bool Update(Models.Vila model);
         bool Delete(Models.Vila model);
+        VilaPaging SearchVila(int pageId,string? filter,int take);
         bool Save();
     }
 }

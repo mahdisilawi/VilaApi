@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Vila.WebApi.Context;
 using Vila.WebApi.Mapping;
@@ -18,9 +19,33 @@ services.AddDbContext<DataContext>(options => options.UseSqlServer(
 services.AddTransient<IVilaService,VilaService>();
 services.AddTransient<IDetailService,DetailService>();
 #endregion
-
 #region AutoMapper
 services.AddAutoMapper(typeof(ModelsMapper));
+#endregion
+#region Swagger
+services.AddSwaggerGen(option =>
+{
+    option.SwaggerDoc("VilaOpenApi", new Microsoft.OpenApi.Models.OpenApiInfo()
+    {
+        Title = "Vila Api",
+        Version = "1",
+        Description = "this is a UI for Vila Api",
+        Contact = new Microsoft.OpenApi.Models.OpenApiContact()
+        {
+            Name = "Mahdi silavi",
+            Email = "silawimahdi2002@gmail.com"
+        },
+        License = new Microsoft.OpenApi.Models.OpenApiLicense()
+        {
+            Name = "Vila Api License",
+            Url = new Uri("https://github.com/mahdisilawi")
+        }
+
+    });
+
+    var pathComment = Path.Combine(AppContext.BaseDirectory, "SwaggerComment.xml");
+    option.IncludeXmlComments(pathComment);
+});
 #endregion
 
 services.AddControllers();
@@ -33,8 +58,12 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    //app.UseSwagger();
-    //app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI(x =>
+    {
+        x.SwaggerEndpoint("/swagger/VilaOpenApi/swagger.json", "Vila Open Api");
+        x.RoutePrefix = "";
+    });
 }
 
 app.UseHttpsRedirection();

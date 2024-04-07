@@ -15,6 +15,7 @@ namespace Vila.WebApi.Mapping
                 .ForMember(x => x.BuildDate, d => d.MapFrom(des => des.BuildDate.ToEnglishDateTime()));;
 
             CreateMap<Detail, DetailDto>().ReverseMap();
+            CreateMap<Models.Vila, VilaSearchDto>();
 
         }
     }
