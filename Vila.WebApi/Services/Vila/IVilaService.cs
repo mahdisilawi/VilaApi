@@ -10,6 +10,7 @@ namespace Vila.WebApi.Services.Vila
         bool Update(Models.Vila model);
         bool Delete(Models.Vila model);
         VilaPaging SearchVila(int pageId,string? filter,int take);
+        VilaAdminPaging SearchVilaAdmin(int pageId, string? filter, int take);
         bool Save();
     }
 }

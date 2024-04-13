@@ -12,10 +12,11 @@ namespace Vila.WebApi.Mapping
             CreateMap<Models.Vila, VilaDto>()
                 .ForMember(x => x.BuildDate, d => d.MapFrom(des => des.BuildDate.ToPersainDate()))
                 .ReverseMap()
-                .ForMember(x => x.BuildDate, d => d.MapFrom(des => des.BuildDate.ToEnglishDateTime()));;
+                .ForMember(x => x.BuildDate, d => d.MapFrom(des => des.BuildDate.ToEnglishDateTime())); ;
 
             CreateMap<Detail, DetailDto>().ReverseMap();
-            CreateMap<Models.Vila, VilaSearchDto>();
+            CreateMap<Models.Vila, VilaSearchDto>().
+                  ForMember(x => x.BuildDate, d => d.MapFrom(des => des.BuildDate.ToPersainDate()));
 
         }
     }

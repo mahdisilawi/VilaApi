@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Asp.Versioning;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Vila.WebApi.Dtos;
@@ -8,7 +9,8 @@ using Vila.WebApi.Services.Vila;
 
 namespace Vila.WebApi.Controllers
 {
-    [Route("api/Detail")]
+    [Route("api/v{version:ApiVersion}/[controller]")]
+    //[ApiVersion("1.0")]
     [ApiController]
     public class DetailController : ControllerBase
     {

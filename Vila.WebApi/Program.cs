@@ -1,9 +1,14 @@
+using Asp.Versioning;
+using Asp.Versioning.ApiExplorer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using Vila.WebApi.Context;
 using Vila.WebApi.Mapping;
 using Vila.WebApi.Services.Detail;
 using Vila.WebApi.Services.Vila;
+using Vila.WebApi.Utility;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -22,30 +27,24 @@ services.AddTransient<IDetailService,DetailService>();
 #region AutoMapper
 services.AddAutoMapper(typeof(ModelsMapper));
 #endregion
-#region Swagger
-services.AddSwaggerGen(option =>
+#region ApiVersioning
+
+services.AddApiVersioning(options =>
 {
-    option.SwaggerDoc("VilaOpenApi", new Microsoft.OpenApi.Models.OpenApiInfo()
-    {
-        Title = "Vila Api",
-        Version = "1",
-        Description = "this is a UI for Vila Api",
-        Contact = new Microsoft.OpenApi.Models.OpenApiContact()
-        {
-            Name = "Mahdi silavi",
-            Email = "silawimahdi2002@gmail.com"
-        },
-        License = new Microsoft.OpenApi.Models.OpenApiLicense()
-        {
-            Name = "Vila Api License",
-            Url = new Uri("https://github.com/mahdisilawi")
-        }
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.DefaultApiVersion = new Asp.Versioning.ApiVersion(1, 0);
+    options.ReportApiVersions = true;
+    //Get Version From header
+    //options.ApiVersionReader = new HeaderApiVersionReader("X-ApiVersion");
 
-    });
-
-    var pathComment = Path.Combine(AppContext.BaseDirectory, "SwaggerComment.xml");
-    option.IncludeXmlComments(pathComment);
+}).AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVVV";
 });
+#endregion
+#region Swagger
+services.AddTransient<IConfigureOptions<SwaggerGenOptions>, SwaggerVilaDocument>();
+services.AddSwaggerGen();
 #endregion
 
 services.AddControllers();
@@ -61,7 +60,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(x =>
     {
-        x.SwaggerEndpoint("/swagger/VilaOpenApi/swagger.json", "Vila Open Api");
+        var provider = app.Services.CreateScope().ServiceProvider
+        .GetRequiredService<IApiVersionDescriptionProvider>();
+        foreach (var item in provider.ApiVersionDescriptions)
+        {
+            x.SwaggerEndpoint($"/swagger/{item.GroupName}/swagger.json",item.GroupName.ToString());
+
+        }
+
+        //x.SwaggerEndpoint("/swagger/VilaOpenApi/swagger.json", "Vila Open Api");
         x.RoutePrefix = "";
     });
 }
