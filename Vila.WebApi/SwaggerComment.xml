@@ -151,5 +151,17 @@
         <member name="M:Vila.WebApi.Migrations.EditVilaModel.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:Vila.WebApi.Migrations.AddCustomerTbl">
+            <inheritdoc />
+        </member>
+        <member name="M:Vila.WebApi.Migrations.AddCustomerTbl.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Vila.WebApi.Migrations.AddCustomerTbl.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Vila.WebApi.Migrations.AddCustomerTbl.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

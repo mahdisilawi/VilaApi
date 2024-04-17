@@ -10,6 +10,8 @@ namespace Vila.WebApi.Context
         }
         public DbSet<Models.Vila> Vilas { get; set; }
         public DbSet<Models.Detail> Details { get; set; }
+        public DbSet<Models.Customer> Customers { get; set; }
+
     }
     
 }

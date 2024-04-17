@@ -1,11 +1,15 @@
 using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Text;
 using Vila.WebApi.Context;
 using Vila.WebApi.Mapping;
+using Vila.WebApi.Services.Customer;
 using Vila.WebApi.Services.Detail;
 using Vila.WebApi.Services.Vila;
 using Vila.WebApi.Utility;
@@ -23,6 +27,7 @@ services.AddDbContext<DataContext>(options => options.UseSqlServer(
 #region Dependencies
 services.AddTransient<IVilaService,VilaService>();
 services.AddTransient<IDetailService,DetailService>();
+services.AddTransient<ICustomerService, CustomerService>();
 #endregion
 #region AutoMapper
 services.AddAutoMapper(typeof(ModelsMapper));
@@ -45,6 +50,30 @@ services.AddApiVersioning(options =>
 #region Swagger
 services.AddTransient<IConfigureOptions<SwaggerGenOptions>, SwaggerVilaDocument>();
 services.AddSwaggerGen();
+#endregion
+#region Jwt
+
+var key = Encoding.ASCII.GetBytes(" jwt vila api ");
+
+services.AddAuthentication(x =>
+{
+    x.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(option =>
+{
+    option.TokenValidationParameters = new TokenValidationParameters
+    {
+
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = "Vila Api",
+        ValidateIssuer = true,
+        ValidAudience = "Jwt Auth",
+        ValidateAudience = true,
+        ValidateLifetime = true
+    };
+});
 #endregion
 
 services.AddControllers();
