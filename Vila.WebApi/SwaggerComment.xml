@@ -6,7 +6,7 @@
     <members>
         <member name="M:Vila.WebApi.Controllers.CustomerController.Register(Vila.WebApi.CustomerModels.RegisterModel)">
             <summary>
-            ورود به سایت
+            ثبت نام در سایت
             </summary>
             <param name="model"> موبایل و کلمه عبور</param>
             <returns></returns>

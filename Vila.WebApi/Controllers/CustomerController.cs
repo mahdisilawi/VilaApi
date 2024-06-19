@@ -6,7 +6,7 @@ using Vila.WebApi.Services.Customer;
 
 namespace Vila.WebApi.Controllers
 {
-    [Route("api/v{version:apiVersion}/Customer")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
