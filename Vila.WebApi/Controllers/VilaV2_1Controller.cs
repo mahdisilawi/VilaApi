@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vila.WebApi.Paging;
 using Vila.WebApi.Services.Vila;
@@ -25,6 +26,7 @@ namespace Vila.WebApi.Controllers
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(VilaAdminPaging))]
         [ProducesResponseType(400)]
+        [Authorize(Roles ="admin")]
         public IActionResult Search(int pageId = 1, string? filter = "", int take = 2)
         {
             if (pageId < 1 || take < 1) return BadRequest();

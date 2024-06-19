@@ -1,7 +1,5 @@
-using Asp.Versioning;
 using Asp.Versioning.ApiExplorer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -53,7 +51,11 @@ services.AddSwaggerGen();
 #endregion
 #region Jwt
 
-var key = Encoding.ASCII.GetBytes(" jwt vila api ");
+//get jwt settig from appsetting
+var jwtSettingSection = builder.Configuration.GetSection("JWTSettings");
+services.Configure<JWTSetting>(jwtSettingSection);
+var jwtSetting = jwtSettingSection.Get<JWTSetting>();
+var key = Encoding.ASCII.GetBytes(jwtSetting.Secret);
 
 services.AddAuthentication(x =>
 {
@@ -67,9 +69,9 @@ services.AddAuthentication(x =>
 
         IssuerSigningKey = new SymmetricSecurityKey(key),
         ValidateIssuerSigningKey = true,
-        ValidIssuer = "Vila Api",
+        ValidIssuer = jwtSetting.Issure,
         ValidateIssuer = true,
-        ValidAudience = "Jwt Auth",
+        ValidAudience = jwtSetting.Audience,
         ValidateAudience = true,
         ValidateLifetime = true
     };
@@ -104,6 +106,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

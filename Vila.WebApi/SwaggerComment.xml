@@ -4,6 +4,20 @@
         <name>Vila.WebApi</name>
     </assembly>
     <members>
+        <member name="M:Vila.WebApi.Controllers.CustomerController.Register(Vila.WebApi.CustomerModels.RegisterModel)">
+            <summary>
+            ورود به سایت
+            </summary>
+            <param name="model"> موبایل و کلمه عبور</param>
+            <returns></returns>
+        </member>
+        <member name="M:Vila.WebApi.Controllers.CustomerController.Login(Vila.WebApi.CustomerModels.RegisterModel)">
+            <summary>
+            ورود به سایت
+            </summary>
+            <param name="model"> موبایل و کلمه عبور</param>
+            <returns></returns>
+        </member>
         <member name="M:Vila.WebApi.Controllers.DetailController.GetAllVilaDetails(System.Int32)">
             <summary>
             دریافت لیست ویژگی های یک ویلا
@@ -92,6 +106,11 @@
             <param name="filter">متن جست وجو</param>
             <param name="take">تعداد نمایش</param>
             <returns></returns>
+        </member>
+        <member name="P:Vila.WebApi.Dtos.LoginResultDto.JwtSecret">
+            <summary>
+            توکن احراز هویت bearer
+            </summary>
         </member>
         <member name="P:Vila.WebApi.Dtos.VilaDto.DayPrice">
             <summary>

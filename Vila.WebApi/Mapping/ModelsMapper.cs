@@ -18,6 +18,8 @@ namespace Vila.WebApi.Mapping
             CreateMap<Models.Vila, VilaSearchDto>().
                   ForMember(x => x.BuildDate, d => d.MapFrom(des => des.BuildDate.ToPersainDate()));
 
+            CreateMap<Models.Customer, LoginResultDto>();
+
         }
     }
 }

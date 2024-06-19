@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Vila.WebApi.Models;
@@ -10,6 +11,7 @@ namespace Vila.WebApi.Controllers
     [Route("api/v{version:ApiVersion}/Vila")]
     [ApiVersion("2.0")]
     [ApiController]
+    [Authorize]
     public class VilaV2Controller : ControllerBase
     {
         private readonly IVilaService _vilaService;
