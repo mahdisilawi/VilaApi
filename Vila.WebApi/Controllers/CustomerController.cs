@@ -30,8 +30,8 @@ namespace Vila.WebApi.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if(_customerService.ExistMobile(model.Mobile))
             {
-                ModelState.AddModelError("model.Mobile", "شماره موبایل تکراری می باشد!");
-                return BadRequest(ModelState);
+                
+                return BadRequest(new {error  = "شماره موبایل تکراری می باشد!" });
             }
 
             if (_customerService.Register(model))
@@ -63,8 +63,7 @@ namespace Vila.WebApi.Controllers
 
             if (!_customerService.PasswordIsCorrect(login.Mobile,login.Password))
             {
-                ModelState.AddModelError("model.Mobile", "کاربری یافت نشد!");
-                return BadRequest(ModelState);
+                return BadRequest(new {error = "کاربری یافت نشد!" });
             }
 
             var customer = _customerService.Login(login.Mobile,login.Password);

@@ -3,6 +3,6 @@
     public class ApiUrls
     {
         public string BaseAddress { get; set; }
-        public string ControllersAddress { get; set; }
+        public string CustomerAddress { get; set; }
     }
 }
